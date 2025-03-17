@@ -27,6 +27,8 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 
+from billing.views import CreateChargeView
+
 
 class JWTSchemaGenerator(OpenAPISchemaGenerator):
     def get_security_definitions(self):
@@ -66,5 +68,5 @@ urlpatterns = [
     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),# swagger
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
+    path('api/v1/pay', CreateChargeView.as_view(), name='create-charge')
 ]

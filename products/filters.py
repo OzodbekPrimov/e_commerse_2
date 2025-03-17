@@ -1,6 +1,6 @@
 
 
-from .models import Product, FlashSale, Order, STATUS_CHOISES
+from .models import Product, FlashSale, Order
 from django_filters import rest_framework as django_filters
 
 
@@ -36,7 +36,7 @@ class FlashSaleFilter(django_filters.FilterSet):
 
 
 class OrderFilter(django_filters.FilterSet):
-    order_status = django_filters.ChoiceFilter(field_name='status',choices=STATUS_CHOISES,lookup_expr='iexact', label='Order status')
+    order_status = django_filters.ChoiceFilter(field_name='status',choices=Order.STATUS_CHOICES,lookup_expr='iexact', label='Order status')
     start_date = django_filters.DateTimeFilter(field_name='created_at', lookup_expr='gte')
     end_date = django_filters.DateTimeFilter('created_at', lookup_expr='lte')
     min_quantity = django_filters.NumberFilter(field_name='quantity', lookup_expr='gte', label='Minimum quantity')
@@ -44,4 +44,4 @@ class OrderFilter(django_filters.FilterSet):
 
     class Meta:
         model = Order
-        fields = ['user', 'product', 'quantity', 'status', 'created_at']
+        fields = ['customer', 'product', 'quantity', 'status', 'created_at']

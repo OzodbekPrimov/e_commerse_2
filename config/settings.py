@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'products',
+    'billing',
+
 ]
 
 MIDDLEWARE = [
@@ -154,11 +156,14 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ALGORITHM': 'HS256',                           # Standart algoritm (ixtiyoriy, lekin aniqlik uchun qo‘shilishi mumkin)
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=120),  # Access tokenning yangilanadigan muddati
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # Refresh tokenning muddati
-    'TOKEN_TYPE_CLAIM': 'token_type',              # Token turini aniqlash uchun (standart)
-    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': True,       # Sliding mexanizmini faollashtirish uchun muhim
+    'ALGORITHM': 'HS256',
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),  # 2 soat
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # 1 kun
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -179,8 +184,12 @@ DJOSER = {
 }
 
 
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+MY_CHAT_ID = os.environ.get('MY_CHAT_ID')
 
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL') # RabbitMQ as a broker
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND') # Redis as a result backend
 
-
-
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 
