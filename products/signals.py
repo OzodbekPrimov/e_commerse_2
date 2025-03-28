@@ -19,6 +19,3 @@ def order_created(sender, instance, created, **kwargs):
             quantity=instance.quantity,
             created_at=str(instance.created_at)
         )
-
-
-

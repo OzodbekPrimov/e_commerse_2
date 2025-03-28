@@ -12,7 +12,7 @@ router = DefaultRouter()
 router.register(r"products", ProductViewset)
 router.register(r"reviews", ReviewViewSet)
 router.register(r"categories", CategoryViewSet)
-router.register(r'order', OrderViewSet)
+router.register(r'orders', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('', include(router.urls)),

@@ -1,7 +1,6 @@
 from rest_framework.test import APITestCase
 
-from custom_auth.urls import urlpatterns
-from products.models import Category, Product
+from products.models import Category
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework import status

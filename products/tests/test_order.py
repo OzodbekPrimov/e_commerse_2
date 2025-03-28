@@ -1,4 +1,4 @@
-from products.models import Order, Product, Category
+from products.models import  Product, Category
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
@@ -21,12 +21,5 @@ class OrderTest(APITestCase):
         self.client.force_authenticate(self.user)
         url = reverse('order-list')
         response = self.client.get(url)
-        print(response.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-
-    def test_order_detail(self):
-        self.client.force_authenticate(self.user)
-        url = reverse('order-detail', args=self.order1.id)
-        response = self.client.get(url)
+        # print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

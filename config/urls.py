@@ -60,6 +60,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include("products.urls")),  #app
 
+    path('api/v1/sms-auth/', include('custom_auth.urls')),
+
     path('api/v1/custom_auth/', include('djoser.urls')),
     path('api/v1/custom_auth/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/custom_auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

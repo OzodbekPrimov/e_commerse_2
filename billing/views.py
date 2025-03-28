@@ -6,7 +6,8 @@ from rest_framework.response import Response
 
 from billing.models import Payment
 from products.models import Order
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 import stripe
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -15,8 +16,25 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class CreateChargeView(views.APIView):
 
+    @swagger_auto_schema(
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'stripe_token': openapi.Schema(type=openapi.TYPE_STRING, description='Stripe to‘lov tokeni'),
+                'order_id': openapi.Schema(type=openapi.TYPE_INTEGER, description='Buyurtma ID’si'),
+            },
+            required=['stripe_token', 'order_id'],
+        ),
+        responses={
+            200: openapi.Response('To‘lov muvaffaqiyatli', openapi.Schema(
+                type=openapi.TYPE_OBJECT,
+                properties={'status': openapi.Schema(type=openapi.TYPE_STRING)}
+            )),
+            400: 'Xato xabari'
+        }
+    )
     def post(self, request, *args, **kwargs):
-        stripe_token = request.data.get('stripe_token')
+        stripe_token = request.data.get('stripe_token') #userning karta ma'lumotlari
         order_id = request.data.get('order_id')
 
         try:
