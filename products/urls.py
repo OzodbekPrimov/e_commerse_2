@@ -20,8 +20,6 @@ urlpatterns = [
     path('check-sale/<int:product_id>/', check_flash_sale, name='check_sale' ),
     path('product-view/', ProductViewHistoryCreate.as_view(), name='product-view-history-create'),
     path('top-order-product/', top_selling_products, name='top_order_product'),
-    # path('orders/', OrderListRetrieveView.as_view(), name='order-list'),
-    # path('orders-create/', OrderCreateView.as_view(), name='order-create'),
-    # path('orders/<int:pk>/', OrderListRetrieveView.as_view(), name='order-detail'),
+
     path('admin/replenish_stock/<int:product_id>/<int:amount>', admin_replenish_stock, name='admin_replenish_stock'),
 ]

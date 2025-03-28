@@ -1,9 +1,9 @@
 import time
-from bisect import insort
+
 
 import requests
 from celery import shared_task
-from .models import Order
+
 from config.settings import MY_CHAT_ID, BOT_TOKEN
 
 

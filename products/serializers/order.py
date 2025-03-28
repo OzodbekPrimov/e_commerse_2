@@ -10,6 +10,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'product', 'customer', 'quantity', 'created_at', 'total_price', 'phone_number', 'is_paid']
+        read_only_fields = ['is_paid']  # Foydalanuvchi bu qiymatni API orqali o‘zgartira olmaydi
 
     def get_total_price(self, obj):
         return obj.product.price * obj.quantity

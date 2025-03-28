@@ -1,8 +1,5 @@
 from datetime import datetime, timedelta
 
-from django_filters.rest_framework import DjangoFilterBackend
-
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from products.models import FlashSale, ProductViewHistory, Product
@@ -11,6 +8,7 @@ from django_filters import rest_framework as django_filters
 from rest_framework import filters
 from products.filters import FlashSaleFilter
 from rest_framework.pagination import  PageNumberPagination
+from products.permissions import IsStaffOrReadOnly
 
 
 class CustomFlashsalePagination(PageNumberPagination):
@@ -27,35 +25,11 @@ class FlashSaleListCreateView(generics.ListCreateAPIView):
 
     serializer_class = FlashSaleSerializer
     pagination_class = CustomFlashsalePagination
+    permission_classes = [IsStaffOrReadOnly]
 
     filter_backends = (django_filters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = FlashSaleFilter
     search_fields = ['product__name']
-
-    class FlashSaleListCreateView(generics.ListCreateAPIView):
-        queryset = FlashSale.objects.all()
-
-        class FlashSaleSerializer(serializers.ModelSerializer):
-            class Meta:
-                model = FlashSale
-                fields = '__all__'
-
-        serializer_class = FlashSaleSerializer
-        pagination_class = CustomFlashsalePagination
-        filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-        filterset_class = FlashSaleFilter
-        search_fields = ['product__name']
-
-        def get_filterset_class(self):
-            """
-            Swagger filter maydonlarini avtomatik qo‘shish uchun.
-            """
-            return self.filterset_class
-
-        @swagger_auto_schema(auto_schema=None)  # Qo'lda parametr qo'shishning oldini oladi
-        def list(self, request, *args, **kwargs):
-            return super().list(request, *args, **kwargs)
-
 
 
 @api_view(['get'])
