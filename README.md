@@ -38,8 +38,8 @@ It includes secure authentication, international payment integration via Stripe,
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/ecommerce-app.git
-cd ecommerce-app
+git clone https://github.com/OzodbekPrimov/e_commerse_2.git
+cd e_commerse_2
 
 # Create virtual environment & activate
 python -m venv env
